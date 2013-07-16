@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<title>Demo</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script data-main="js/app.js" src="lib/require.js"></script>
+	<!--<script src="lib/jquery.js"></script>
+		<script src="lib/backbone/underscore.js"></script>
+		<script src="lib/backbone/backbone.js"></script>
+		<script src="lib/ejs.js"></script>
+		<script src="lib/Highcharts-3.0.2/highcharts.js"></script>
+		<script src="lib/Highstock-1.3.2/highstock.js"></script>
+		<script src="js/models/Navi.js"></script>
+		<script src="js/view/Navi.js"></script>
+		<script src="js/view/AdminPortal.js"></script>
+		<script src="js/app.js"></script>-->
+	<script type="text/template" id="navibar">
+      <%var ___renderMenu = function(labelBy, items){%>
+      <ul class="dropdown-menu" role="menu"
+          <%if(labelBy){%>aria-labelledby="<%=labelBy%>"<%}%> >
+        <%items.forEach(function(item){%>
+        <%if(item.items&&item.items.length){%>
+        <li class="dropdown-submenu"><a tabindex="-1" href="#"><%=item.label%></a>
+          <%___renderMenu(0,item.items);%>
+        </li>
+        <%}else if(item.divider){%>
+        <li class="divider"></li>
+        <%}else{%>
+        <li><a href="#<%=(item.url?item.url:"")%>"><%=item.label%></a></li>
+        <%}%>
+        <%});%>
+      </ul>
+      <%}%>
+
+      <%if(config.css){%><div class="<%=config.css%>"><%}%>
+        <%if(config.container){%><div class="container"><%}%>
+          <div class="navbar<%=config.fixedTop?" navbar-fixed-top":""%><%=config.fixedBottom?" navbar-fixed-bottom":""%><%=config.staticTop?" navbar-static-top":""%><%=config.staticBottom?" navbar-static-bottom":""%><%=config.inverse?" navbar-inverse":""%>">
+            <div class="navbar-inner">
+              <%if(config.innerContainer){%><div class="container"><%}%>
+                <%if(config.brand){%>
+                <a class="brand" href="#"><%-config.brand%></a>        
+                <%}%>
+                <ul class="nav 
+                           <%if(config.list){%>nav-list<%}%>
+                           <%if(config.tab){%>nav-tabs<%}%>
+                           <%if(config.pill){%>nav-pills<%}%>
+                           <%if(config.stacked){%>nav-stacked<%}%>
+                           <%if(config.right){%>pull-right<%}%>
+                           ">
+                  <%if(items&&items.length){
+                     items.forEach(function(item){%>
+                  <li class="
+                             <%=(item.active?"active":"")%>
+                             <%=(item.disabled?"disabled":"")%>
+                             <%=(item.divider?"divider":"")%>
+                             <%=(item.items?"dropdown":"")%>
+                             ">
+                    <%if(item.items){%>
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                      <%if(item.icon){%><i class="<%=item.icon%>"></i><%}%>
+                      <%=item.label%>
+                      <b class="caret"></b>
+                    </a>
+                    <%   ___renderMenu(item.labelBy, item.items);
+                         }else if(item.divider){%>
+                    <%}else if(item.url){%>
+                    <a href="#<%-item.url%>">
+                      <%if(item.icon){%><i class="<%=item.icon%>"></i><%}%>
+                      <%=item.label%></a>
+                    <%}else{%>
+                    <%=item.label%>
+                    <%}});
+                       }%>
+                </ul> 
+                <%if(config.innerContainer){%></div><%}%>
+            </div>
+          </div>
+          <%if(config.container){%></div><%}%>
+        <%if(config.css){%></div><%}%>
+    </script>
+	<script type="text/template" id="navi">
+	  <%var ___renderMenu = function(labelBy, items){%>
+      <ul class="dropdown-menu" role="menu"
+          <%if(labelBy){%>aria-labelledby="<%=labelBy%>"<%}%> >
+        <%items.forEach(function(item){%>
+        <%if(item.items&&item.items.length){%>
+        <li class="dropdown-submenu"><a tabindex="-1" href="#"><%=item.label%></a>
+          <%___renderMenu(0,item.items);%>
+        </li>
+        <%}else if(item.divider){%>
+        <li class="divider"></li>
+        <%}else{%>
+        <li><a tabindex="-1" href="<%=(item.url?item.url:"#")%>"><%=item.label%></a></li>
+        <%}%>
+        <%});%>
+      </ul>
+      <%}%>
+
+      <ul class="nav 
+                 <%if(config.list){%>nav-list<%}%>
+                 <%if(config.tab){%>nav-tabs<%}%>
+                 <%if(config.pill){%>nav-pills<%}%>
+                 <%if(config.stacked){%>nav-stacked<%}%>
+                 ">
+        <%if(items&&items.length){
+           items.forEach(function(item){%>
+        <li class="
+                   <%=(item.header?"navi-header":"")%>
+                   <%=(item.active?"active":"")%>
+                   <%=(item.disabled?"disabled":"")%>
+                   <%=(item.divider?"divider":"")%>
+                   <%=(item.items?"dropdown":"")%>
+                   ">
+          <%if(item.items){%>
+          <a class="dropdown-toggle"
+             data-toggle="dropdown"
+             href="#">
+            <%=item.label%>
+            <b class="caret"></b>
+          </a>
+          <%___renderMenu(item.labelBy, item.items);
+                                        }else if(item.divider){%>
+          <%}else if(item.url){%>
+          <a href="<%-item.url%>"><%=item.label%></a>
+          <%}else{%>
+          <%=item.label%>
+          <%}%>
+        </li>
+        <%});
+           }%>
+      </ul>
+	</script>
+	<script type="text/template" id="grid">
+      <%if(config.css){%><div class="<%=config.css%>"><%}%>
+        <%if(config.container){%><div class="container"><%}%>
+
+          <%if(config.title){%>
+          <div class="grid-title">
+            <h3><%-config.title%></h3>
+          </div>
+          <%}%>
+
+          <% if (rows.length) { %>
+          <%rows.forEach(function(columns){ %>
+          <div id="<%=uiId%>"  class="row<%if(config.fluid){%>-fluid<%}%>">
+            <% columns.forEach(function(col){%>
+            <div class="
+                        <%if(col.config.span){%>span<%=col.config.span%><%}%>
+                        <%if(col.config.offset){%>offset<%=col.config.offset%><%}%> 
+                        <%=(col.config.css?col.config.css:"")%> 
+                        "><%-col.body%></div>
+            <%});%>
+          </div>
+          <%});%>
+          <%}%>
+
+          <%if(config.container){%></div><%}%>
+        <%if(config.css){%></div><%}%>
+    </script>
+	<script type="text/template" id="datatable">
+        <table cellspacing="0" cellpadding="0" border="0" class="table table-striped table-bordered dataTable" aria-describedby="example_info">
+	      <thead>
+		    <tr role="row">
+              <% meta.forEach(function(col) {%>
+              <th class="<%=col.sortable?'sorting':''%>" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"><%=col.label%></th>
+              <%});%>
+            </tr>
+	      </thead>
+          <tbody role="alert" aria-live="polite" aria-relevant="all">
+            <% records.forEach(function(record) {%>
+            <tr>
+              <% meta.forEach(function(col) {%>
+			  <td><%-record[col.id]%></td>
+              <%});%>
+		    </tr>
+            <%});%>
+		</tbody></table>
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <div id="mainContent" class="main2Content"></div>
+    <div id="sidebar" class="sidebar"></div>
+  </body>
+</html>
