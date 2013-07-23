@@ -22,7 +22,10 @@ define(['jquery','backbone', 'underscore', './NaviBar','./IssueStatics','./Grid'
                    this.layout.addRow([{view:this.issuesTable}]);
                    this.layout.addRow([{view:this.chartView}]);
                    this.layout.render();
-               }
+               },
+	       cleanUp: function(){
+		   this.layout.cleanUp();
+	       }
            });
            return AdminPortal;
        });

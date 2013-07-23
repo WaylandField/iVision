@@ -100,7 +100,22 @@ define(['backbone',  'app/ViewFactory', 'collections/GeneralCollection'], functi
                     (alert(layout[k] + ' not existed'));
                 }
             }
-        }
+        },
+	cleanUp: function(){
+	    var page = this.options.page;
+            var layout = page.layout;
+            for(var k in layout){
+                var view = this.views[layout[k]];
+                if(view){
+		    if(view.cleanUp){
+			view.cleanUp();
+		    }else{
+			view.remove();
+		    }
+		}
+	    }
+	}
+
     });
     return GeneralPortal;
 });

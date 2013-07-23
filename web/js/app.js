@@ -8,6 +8,7 @@ require.config({
         'app':'js',
         'view':'js/view',
         'models':'js/models',
+        'pages':'js/pages',
         'collections':'js/collections',
         'highchartlib': 'lib/Highcharts-3.0.2',
         'underscore': 'lib/backbone/underscore',
@@ -59,8 +60,12 @@ define(['jquery', 'backbone', 'view/AdminPortal', 'view/GeneralPortal', './js/Mo
             },
             showPage: function(pageId){
                 // test with mock data
-                var page = MockPage[pageId];
-                new GeneralPortal({page: page});
+		require(["pages/"+pageId], function(page){
+		    if(this.mainPortal){
+			this.mainPortal.cleanUp();
+		    }
+                    this.mainPortal = new GeneralPortal({page: page});
+		});
             }
         });
         var router = new Workspace();

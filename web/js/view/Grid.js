@@ -41,7 +41,22 @@ define(['jquery','backbone'],
 
                    }
                     return this;
-               }
+               },
+	       cleanUp: function(){
+                   for(var row in this.rows){
+                       for(var i in this.rows[row]){
+                           var col = this.rows[row][i];
+                           if(col&&col.view){
+			       if(col.view.cleanUp){
+				   col.view.cleanUp();
+			       }else{
+				   col.view.remove();
+			       }
+			   }
+                       }
+                   }
+		   
+	       }
            });
            return Grid;
        });

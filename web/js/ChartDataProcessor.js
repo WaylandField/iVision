@@ -88,11 +88,6 @@ define(['backbone', 'underscore'],
 		           title : {
 			           text : 'Live random data'
 		           },
-		           
-		           exporting: {
-			           enabled: false
-		           },
-		           
 		           series : [{
 			           name : 'Random data',
 			           data : (function() {

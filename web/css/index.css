@@ -1,3 +1,4 @@
+.mainContent{margin-top:50px}
 /* main headings*/
 .heading {border-bottom: 1px solid #dcdcdc;margin-bottom: 18px;padding-bottom: 5px}
 .heading h1,.heading h2,.heading h3,h1.heading,h2.heading,h3.heading,.modal-header h3 {font-family: 'PT Sans', sans-serif;font-weight:bold; font-size:100%;line-height:200%}
