@@ -51,6 +51,19 @@ dao.delete('navi', {}, function(){
          label:'分析报告',
          url:'navi/reports',
 	icon:'icon-list-alt icon-white'}
+    ]},{id:"2", label:'电信', items:[
+        {id:'delay',
+         label:'实时延迟',
+         url:'navi/delay',
+	icon:'icon-th-large icon-white'},
+        {id:'charts',
+         label:'数据图表',
+         url:'navi/charts',
+	icon:'icon-eye-open icon-white'},
+        {id:'datatable',
+         label:'数据表',
+         url:'navi/datatable',
+	icon:'icon-warning-sign icon-white'}
     ]}], function(){
         console.log("Add navigation completed");
 	    addIssue();
