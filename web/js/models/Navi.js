@@ -5,7 +5,7 @@ define(["backbone"],function(Backbone){
             items:[],
             config:{}
         },
-        urlRoot:'/api/navi'
+        urlRoot:'/api/go/navi'
     });
     return NaviModel;
 });

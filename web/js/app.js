@@ -14,10 +14,11 @@ require.config({
         'underscore': 'lib/backbone/underscore',
         'backbone': 'lib/backbone/backbone',
         'jquery': 'lib/jquery-2.0.3.min',
-        'ejs': 'lib/ejs',
+        'i18n': 'lib/jquery.i18n.properties-min-1.0.9',
         'sparkline': 'lib/jquery.sparkline',
         'datatable': 'lib/jquery.dataTables',
         'bsdatatable': 'lib/DT_bootstrap',
+        'ejs': 'lib/ejs',
         'highchart': 'lib/Highstock-1.3.2/highstock',
         'highchart-more': 'lib/Highstock-1.3.2/highcharts-more',
         'bootstrap-dropdown': 'lib/bootstrap/bootstrap-dropdown'
@@ -39,6 +40,10 @@ require.config({
             deps: ['jquery'],
             exports: '$'
         },
+        'i18n': {
+            deps: ['jquery'],
+            exports: '$'
+        },
         'backbone': {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
@@ -46,29 +51,40 @@ require.config({
     }
 });
 
-define(['jquery', 'backbone', 'view/AdminPortal', 'view/GeneralPortal', './js/MockPage'],function($, Backbone, AdminPortal, GeneralPortal, MockPage){
+define(['i18n', 'backbone', 'view/GeneralPortal'],function($, Backbone, GeneralPortal){
     $(function(){
-        var Workspace = Backbone.Router.extend({
-            routes: {
-                "login":               "login",    // #help
-                "dashboard":           "dashboard",    // #help
-                "navi/:pageId":        "showPage"  // #search/kiwis
-            },
-            login: function(){},
-            dashboard: function(){
-                (new AdminPortal()).render();
-            },
-            showPage: function(pageId){
-                // test with mock data
-		require(["pages/"+pageId], function(page){
-		    if(this.mainPortal){
-			this.mainPortal.cleanUp();
+	$.i18n.properties({
+	    name:'Messages', 
+	    path:'messages/', 
+	    mode:'map',
+	    callback: function() {
+		window.MSGS = $.i18n.map;
+		var Workspace = Backbone.Router.extend({
+		    routes: {
+			"login":               "login",    // #help
+			"dashboard":           "dashboard",    // #help
+			"navi/:pageId":        "showPage"  // #search/kiwis
+		    },
+		    login: function(){
+			this.showPage('login');
+		    },
+		    dashboard: function(){
+			(new AdminPortal()).render();
+		    },
+		    showPage: function(pageId){
+			// test with mock data
+			require(["pages/"+pageId], function(page){
+			    if(this.mainPortal){
+				this.mainPortal.cleanUp();
+			    }
+			    this.mainPortal = new GeneralPortal({page: page});
+			});
 		    }
-                    this.mainPortal = new GeneralPortal({page: page});
 		});
-            }
-        });
-        var router = new Workspace();
-        Backbone.history.start();
+		var router = new Workspace();
+		router.login();
+		Backbone.history.start();
+	    }
+	});
     });
 });

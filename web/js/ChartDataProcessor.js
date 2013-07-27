@@ -107,7 +107,7 @@ define(['backbone', 'underscore'],
 			           })()
 		           },{
 			           name : 'Network Delay 2',
-			       type:'area',
+			       type:'line',
 			           data : (function() {
 				           // generate an array of random data
 				           var data = [], time = (new Date()).getTime(), i;

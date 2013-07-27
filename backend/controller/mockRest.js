@@ -22,8 +22,9 @@ exports.authRest = {
     before: function(req, res, next){
         if(!collectionSet[req.params.collectionId]){
             res.send("you can't access this collection");
-        }
-        next();
+        }else{
+            next();
+	}
     }
 };
 
@@ -66,7 +67,7 @@ exports.get = {
 };
 
 exports.update = {
-    path: '/api/:collectionId/:id',
+    path: '/mock/:collectionId/:id',
     method:'post',
     before: function(req, res, next){
         // to do authentication
@@ -87,7 +88,7 @@ exports.update = {
 };
 
 exports.add = {
-    path: '/api/:collectionId',
+    path: '/mock/:collectionId',
     method:'post',
     before: function(req, res, next){
         // to do authentication

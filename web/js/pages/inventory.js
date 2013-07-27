@@ -2,9 +2,9 @@ define(['app/ChartDataProcessor'], function(DataProcessor){
     return {
         /** datasource started **/
         dataSource : {
-            navis: {url:'/api/navi', type: 'model', id:'1', config:{fixedTop:1}},
+            navis: {url:'/api/go/navi', type: 'model', id:'1', config:{fixedTop:1}},
             issues: {
-                url: '/api/issue',
+                url: '/api/go/issue',
                 subsets: {
                     weeklyCount: function(models){
                         return DataProcessor.weeklyGroupCount(models, 'changeTime', 'host');

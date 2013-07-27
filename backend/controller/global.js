@@ -1,13 +1,3 @@
-exports.auth = {
-    path : '*',
-    before: function(req, res, next){
-//        if(!req.session||!req.session.user){
-            //res.send("Not autherized");
-//        }
-        next();
-    }
-};
-
 exports.upload = {
     path: '/service/upload',
     method:'post',
@@ -17,7 +7,7 @@ exports.upload = {
     run : function(req, res){
         var fs = require('fs');
         var tmp_path = req.files.file.path;
-        var target_path = './../static/upload/' + req.files.file.name;
+        var target_path = './../web/upload/' + req.files.file.name;
 
         fs.rename(tmp_path, target_path, function(err) {
             if (err) throw err;

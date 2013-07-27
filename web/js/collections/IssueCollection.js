@@ -1,7 +1,7 @@
 define(['backbone','./../models/Issue'],function(Backbone, IssueModel){
     var IssueCollection = Backbone.Collection.extend({
         model: IssueModel,
-        url:'/api/issue',
+        url:'/api/go/issue',
         initialize: function(){
             this.dataStrategy = [];
             if(this.options&&this.options.dataStrategy){

@@ -1,4 +1,4 @@
-define(['backbone', 'view/NaviBar', 'view/Navi','view/IssueStatics', 'view/Grid', 'view/ViewGrid', 'view/InlineChart', 'view/ChartView', 'view/Datatable', 'view/StockView'], function(Backbone, NaviBar, Navi, IssueStatics, Grid, ViewGrid, InlineChart, ChartView, Datatable, StockView){
+define(['backbone', 'view/NaviBar', 'view/Navi','view/IssueStatics', 'view/Grid', 'view/ViewGrid', 'view/InlineChart', 'view/ChartView', 'view/Datatable', 'view/StockView', 'view/LoginForm'], function(Backbone, NaviBar, Navi, IssueStatics, Grid, ViewGrid, InlineChart, ChartView, Datatable, StockView, LoginForm){
     var VIEW_MAPPING = {
         "navibar" : NaviBar,
         "navi" : Navi,
@@ -8,7 +8,8 @@ define(['backbone', 'view/NaviBar', 'view/Navi','view/IssueStatics', 'view/Grid'
         "chart" :ChartView,
         "issuestatics" :IssueStatics,
         "datatable" : Datatable,
-        "stock" : StockView
+        "stock" : StockView,
+	"loginform": LoginForm
     };
     
     var ViewFactory = {};

@@ -11,6 +11,9 @@ define(['backbone',  'app/ViewFactory', 'collections/GeneralCollection'], functi
         _createDataSource : function(){
             var page = this.options.page;
             var dataSourceDef = page.dataSource;
+	    if(!dataSourceDef){
+		return;
+	    } 
             for(var k in dataSourceDef){
                 var dsDef = dataSourceDef[k];
                 var newDs;
@@ -58,7 +61,7 @@ define(['backbone',  'app/ViewFactory', 'collections/GeneralCollection'], functi
                             }else{
                                 (alert(row[ii].viewId + ' not existed'));
                             }
-                         }
+                        }
                         view.addRow(newRow);
                     }
                 }
@@ -72,7 +75,8 @@ define(['backbone',  'app/ViewFactory', 'collections/GeneralCollection'], functi
             viewDef.data&&(options.data=this.dataSource[viewDef.data]);
             viewDef.renderTo&&(options.renderTo=viewDef.renderTo);
             viewDef.meta&&(options.meta=viewDef.meta);
-            viewDef.UI==='grid'&&(options.isGrid=1);
+            viewDef.UI==='grid'&&(options.renderOnCreat=1);
+            viewDef.UI==='loginform'&&(options.renderOnCreat=1);
             viewDef.chart&&(options.chart=viewDef.chart);
             return options;
         },
@@ -95,11 +99,12 @@ define(['backbone',  'app/ViewFactory', 'collections/GeneralCollection'], functi
                         $(this.el).html('');
                         $(this.el).append(view.el);
                     }
-                    view.options.isGrid && (view.render());
+                    view.options.renderOnCreat && (view.render());
                 }else{
-                    (alert(layout[k] + ' not existed'));
+                    alert(layout[k] + ' not existed');
                 }
             }
+	    $(document.body).append(this.el);
         },
 	cleanUp: function(){
 	    var page = this.options.page;

@@ -7,7 +7,7 @@ var collectionSet = {
 };
 
 exports.authRestDetail = {
-    path:'/api/:collectionId/*',
+    path:'/api/go/:collectionId/*',
     method:'all',
     before: function(req, res, next){
         if(!collectionSet[req.params.collectionId]){
@@ -17,7 +17,7 @@ exports.authRestDetail = {
     }
 };
 exports.authRest = {
-    path:'/api/:collectionId',
+    path:'/api/go/:collectionId',
     method:'all',
     before: function(req, res, next){
         if(!collectionSet[req.params.collectionId]){
@@ -28,7 +28,7 @@ exports.authRest = {
 };
 
 exports.getSingle = {
-    path: '/api/:collectionId/:id',
+    path: '/api/go/:collectionId/:id',
     method:'get',
     before: function(req, res, next){
         // to do authentication
@@ -47,7 +47,7 @@ exports.getSingle = {
 };
 
 exports.get = {
-    path: '/api/:collectionId',
+    path: '/api/go/:collectionId',
     method:'get',
     before: function(req, res, next){
         // to do authentication
@@ -66,7 +66,7 @@ exports.get = {
 };
 
 exports.update = {
-    path: '/api/:collectionId/:id',
+    path: '/api/go/:collectionId/:id',
     method:'post',
     before: function(req, res, next){
         // to do authentication
@@ -87,7 +87,7 @@ exports.update = {
 };
 
 exports.add = {
-    path: '/api/:collectionId',
+    path: '/api/go/:collectionId',
     method:'post',
     before: function(req, res, next){
         // to do authentication

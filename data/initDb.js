@@ -1,5 +1,20 @@
 var dao = require('./../backend/dao/base');
 var naviId = '1';
+var userService =require('./../backend/service/UserService');
+
+var addDefaultUser = function(){
+    userService.cryptPassword('admin', function(err, hash){
+	var users = [
+		{username:'admin', firstName: 'Yichang', mi: 'E', lastName: 'Tian', password: hash}
+	];
+	dao.delete('user', {}, function(){
+	    dao.addNew('user', users, function(){
+		console.log("Add user completed");
+		dao.close();
+	    });
+	});
+    });
+};
 
 
 var addIssue = function(){
@@ -22,7 +37,7 @@ dao.delete('issue', {}, function(){
     // add navigation
     dao.addNew('issue', mockData, function(){
         console.log("Add issues completed");
-	dao.close();
+	addDefaultUser();
     });
 });
 };
