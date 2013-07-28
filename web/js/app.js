@@ -58,15 +58,29 @@ define(['i18n', 'backbone', 'view/GeneralPortal'],function($, Backbone, GeneralP
 	    path:'messages/', 
 	    mode:'map',
 	    callback: function() {
+		window.MSGS_FORMAT = $.i18n.prop;
 		window.MSGS = $.i18n.map;
 		var Workspace = Backbone.Router.extend({
 		    routes: {
 			"login":               "login",    // #help
+			"logout":               "logout",    // #help
 			"dashboard":           "dashboard",    // #help
 			"navi/:pageId":        "showPage"  // #search/kiwis
 		    },
 		    login: function(){
 			this.showPage('login');
+		    },
+		    logout: function(){
+			var url = '/api/session';
+			var that = this;
+			$.ajax({
+			    url:url,
+			    type:'delete',
+			    dataType:"json",
+			    success:function (data) {
+				that.login();
+			    }
+			});
 		    },
 		    dashboard: function(){
 			(new AdminPortal()).render();

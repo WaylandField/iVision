@@ -53,7 +53,7 @@
                 <%if(menus&&menus.length){
                    menus.forEach(function(menu){
 		   var items = menu.items;
-		   var config = menu.config;
+		   var config = menu.config?menu.config:{};
 		   %>
                 <ul class="nav 
                            <%if(config.list){%>nav-list<%}%>
@@ -89,7 +89,7 @@
                     <%}});
                        }%>
                 </ul> 
-		<%}}%>
+		<%});}%>
                 <%if(config.innerContainer){%></div><%}%>
             </div>
           </div>

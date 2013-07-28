@@ -3,16 +3,20 @@ define(['backbone'], function(Backbone){
 	tagName: 'div',
 	className: 'modal',
 	events: {
-	    "click #sign_in": "login"
+	    "click #sign_in": "login",
+	    "submit #loginForm" : "login"
 	},
 	
 	render: function(){
+	    var form = document.createElement("form");
+	    $(this.el).append(form);
+	    $(form).attr("id", "loginForm");
 	    var header = document.createElement('div');
 	    $(header).addClass('modal-header');
 	    var title = document.createElement('h3');
 	    $(title).text(MSGS['app_title']);
 	    $(header).append(title);
-	    $(this.el).append(header);
+	    $(form).append(header);
 
 	    var body = document.createElement('div');
 	    $(body).addClass('modal-body');
@@ -27,13 +31,13 @@ define(['backbone'], function(Backbone){
 			  '</div><div class="formRow clearfix"><label class="checkbox"><input type="checkbox">'+MSGS.remember_me+'</label>'+
 			  '<div></div>');
 	    $(body).html(formHtml.join(""));
-	    $(this.el).append(body);
+	    $(form).append(body);
 	    
 	    var footer = document.createElement('div');
 	    $(footer).addClass('modal-footer');
 	    $(footer).html('<button class="btn btn-inverse pull-right" type="submit" id="sign_in">'+ MSGS['sign_in']+'</button>'+
 			   '<span class="link_reg pull-left"><a href="#reg_form">'+ MSGS['not_registered']+'</a></span>');
-	    $(this.el).append(footer);
+	    $(form).append(footer);
 	},
 
 	login:function (event) {
@@ -52,14 +56,7 @@ define(['backbone'], function(Backbone){
 		dataType:"json",
 		data: formValues,
 		success:function (data) {
-                    console.log(["Login request details: ", data]);
-		    
-                    if(data.error) {  // If there is an error, show the error messages
-			$('.alert-error').text(data.error.text).show();
-                    }
-                    else { // If not, send them back to the home page
-			window.location='#navi/home';
-                    }
+		    window.location='#navi/home';
 		}
             });
 	}

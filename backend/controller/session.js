@@ -17,13 +17,17 @@ exports.login = {
     path: '/api/session',
     method: 'post',
     run: function(req, res){
-	userService.login(req, function(err, success){
+	userService.login(req, function(err, result){
 	    if(err){
 		res.send(500, {error:"System Error"});
 	    }else{
-		if(success){
-		    
-		    res.send(200, {});
+		if(result.success){
+		    req.session.user = result.user;
+		    res.send(200, {
+			firstName: result.user.firstName, 
+			mi: result.user.mi, 
+			lastName: result.user.lastName
+		    });
 		}else{
 		    res.send(401, {error:"AuthenticationError"});
 		}
@@ -36,7 +40,7 @@ exports.logout ={
     path: '/api/session',
     method: 'del',
     run: function(req, res, next){
-	req.session.distroy();
-	res.send(200);
+	req.session.user = null;
+	res.send(200, {});
     }
 };

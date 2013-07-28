@@ -5,7 +5,7 @@ var userService =require('./../backend/service/UserService');
 var addDefaultUser = function(){
     userService.cryptPassword('admin', function(err, hash){
 	var users = [
-		{username:'admin', firstName: 'Yichang', mi: 'E', lastName: 'Tian', password: hash}
+	    {username:'admin', firstName: 'Yichang', mi: 'E', lastName: 'Tian', password: hash, menuId: naviId}
 	];
 	dao.delete('user', {}, function(){
 	    dao.addNew('user', users, function(){

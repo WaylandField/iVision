@@ -12,8 +12,7 @@ service.login = function(req, callback){
 		if(err){
 		    callback(err);
 		}else{
-		    req.session.user = doc;
-		    callback(null, match);
+		    callback(null, {success:match, user: doc});
 		}
 	    });
         }

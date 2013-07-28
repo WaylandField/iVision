@@ -2,7 +2,7 @@ define(['app/ChartDataProcessor'], function(DataProcessor){
     return {
         /** datasource started **/
         dataSource : {
-            navis: {url:'/api/go/navi', type: 'model', id:'1', config:{fixedTop:1}},
+            navis: {url:'/api/navi', type: 'model', config:{fixedTop:1}},
             issues: {
                 url: '/api/go/issue',
                 subsets: {
