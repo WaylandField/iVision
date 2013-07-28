@@ -1,5 +1,6 @@
 var userService = require('./../service/UserService');
 var escapeUrl = {"/api/session":1};
+exports.level = 0;
 exports.auth = {
     path : '*',
     method:'all',
